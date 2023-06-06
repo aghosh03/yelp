@@ -1,0 +1,11 @@
+import React from 'react'
+
+const Header = () => {
+  return (
+    <div>
+        <h1 className="font-weight-light text-center">Restaurant Reviews</h1>
+    </div>
+  )
+}
+
+export default Header
