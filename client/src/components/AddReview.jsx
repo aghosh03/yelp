@@ -1,19 +1,21 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import {useNavigate, useParams } from 'react-router-dom';
 import RestaurantFinder from '../apis/RestaurantFinder';
 import { RestaurantsContext } from '../context/RestaurantsContext';
 
 const AddReview = (props) => {
 
-    const {addReviews} = useContext(RestaurantsContext)
+    const {allReviews, setAllReviews} = useContext(RestaurantsContext)
 
     const {id} = useParams();
     const [name, setName]= useState("");
     const [reviewText, setReviewText]= useState("");
     const [rating, setRating]= useState("(Select Star Rating)");
     
+    const navigate = useNavigate();
 
     const handleSubmitReview= async (e)=>{
+        
         e.preventDefault();
         try{
             const response = await RestaurantFinder.post(`/restaurants/${id}/addReview`,{
@@ -21,14 +23,14 @@ const AddReview = (props) => {
                 review: reviewText,
                 rating
             });
-            console.log(response);
-            addReviews(response.data.data.review);
+            
+            setAllReviews([...allReviews,response.data.data.review]);
+
         }catch(err){
             console.log(err);
         }
     }
 
-    const navigate = useNavigate();
     const handleReturnHome = ()=>{
         navigate('/')
     }

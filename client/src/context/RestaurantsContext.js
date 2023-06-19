@@ -13,10 +13,6 @@ export const RestaurantsContextProvider = ({children}) =>{
         setRestaurants([...restaurants,restaurant]);
     }
 
-    const addReviews = (review) =>{
-        setAllReviews([...allReviews,review]);
-    }
-
     const globalStates = {
             restaurants, 
             setRestaurants,
@@ -24,8 +20,7 @@ export const RestaurantsContextProvider = ({children}) =>{
             setSelectedRestaurant,
             addRestaurants,
             allReviews,
-            setAllReviews,
-            addReviews
+            setAllReviews
         }
 
     return(

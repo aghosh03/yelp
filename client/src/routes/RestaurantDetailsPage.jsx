@@ -19,14 +19,12 @@ const RestaurantDetailsPage = (props) => {
         const response = await RestaurantFinder.get(`/restaurants/${id}`);
         setSelectedRestaurant(response.data.data);
 
-        const response2 = await RestaurantFinder.get(`/all_reviews`);
-        setAllReviews(response2.data.data.allReviews);
-
       } catch(err){
         console.log(err)
       }
     }
     fetchData();
+    
   },[allReviews]);
 
   return (
