@@ -18,7 +18,7 @@ app.use(express.json());
 
 
 //Get all restaurants and reviews
-app.get("/api/v1/restaurants", async (req, res)=>{
+app.get("/api/restaurants", async (req, res)=>{
     try{
 
         const queryText = "select * from restaurants left join (select restaurant_id, count(*), TRUNC(AVG(rating),1) as average_rating from reviews group by restaurant_id) reviews on restaurants.id = reviews.restaurant_id;"
@@ -37,7 +37,7 @@ app.get("/api/v1/restaurants", async (req, res)=>{
 });
 
 //Get a Restaurant
-app.get("/api/v1/restaurants/:id", async (req, res)=>{
+app.get("/api/restaurants/:id", async (req, res)=>{
 
     try{
         const queryText = "select * from restaurants left join (select restaurant_id, count(*), TRUNC(AVG(rating),1) as average_rating from reviews group by restaurant_id) reviews on restaurants.id = reviews.restaurant_id where id=$1;"
@@ -61,7 +61,7 @@ app.get("/api/v1/restaurants/:id", async (req, res)=>{
 })
 
 //Create a restaurant
-app.post("/api/v1/restaurants",async (req, res)=>{
+app.post("/api/restaurants",async (req, res)=>{
 
     try {
         const results = await db.query("INSERT INTO restaurants (name, location, price_range) values ($1, $2, $3) returning *",[req.body.name, req.body.location, req.body.price_range]);
@@ -79,7 +79,7 @@ app.post("/api/v1/restaurants",async (req, res)=>{
 
 
 //Update Restaurant
-app.put("/api/v1/restaurants/:id", async (req, res)=>{
+app.put("/api/restaurants/:id", async (req, res)=>{
 
     try{    
         const result = await db.query("UPDATE restaurants SET name=$1, location=$2, price_range=$3 where id = $4 returning *",[req.body.name, req.body.location, req.body.price_range, req.params.id])
@@ -97,7 +97,7 @@ app.put("/api/v1/restaurants/:id", async (req, res)=>{
 })
 
 //Delete Restaurant
-app.delete("/api/v1/restaurants/:id", async (req,res)=>{
+app.delete("/api/restaurants/:id", async (req,res)=>{
     try{    
         const result = await db.query("DELETE from restaurants WHERE id = $1",[req.params.id])
         res.status(200).json({
@@ -114,7 +114,7 @@ app.delete("/api/v1/restaurants/:id", async (req,res)=>{
 
 
 //Add review
-app.post("/api/v1/restaurants/:id/addReview", async (req, res)=>{
+app.post("/api/restaurants/:id/addReview", async (req, res)=>{
     
     try{    
         const newReview = await db.query("INSERT INTO reviews (restaurant_id, name, review, rating) values ($1,$2,$3,$4) returning *;",[req.params.id, req.body.name, req.body.review, req.body.rating])
@@ -134,7 +134,7 @@ app.post("/api/v1/restaurants/:id/addReview", async (req, res)=>{
 
 
 //Get all reviews
-app.get("/api/v1/all_reviews", async (req, res)=>{
+app.get("/api/all_reviews", async (req, res)=>{
     try{
         const results = await db.query("select * from reviews");
 
