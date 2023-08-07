@@ -1,3 +1,4 @@
 client/none_modules
 server/none_modules
 server/.env
+.gitignore
