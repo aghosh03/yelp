@@ -7,7 +7,7 @@ import StarRating from './StarRating';
 const RestaurantList = (props) => {
 
     const {restaurants, setRestaurants} = useContext(RestaurantsContext);
-    const {setAllReviews} = useContext(RestaurantsContext);
+    const {allReviews, setAllReviews} = useContext(RestaurantsContext);
 
     const navigate = useNavigate()
 
