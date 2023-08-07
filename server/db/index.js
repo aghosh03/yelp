@@ -3,11 +3,11 @@ const {Pool, Client} = require("pg");
 const pool = new Pool();
 const client = new Client();
 
-pool.connect((err, client, release) => {
+pool.connect((err, release) => {
     if (err) {
-      return console.error(`connection error to database with host: '${client.host}', database: '${client.database}'`, err.stack)
+      return console.error(`connection error to database`, err.stack)
     } else {
-      return console.log(`connected successfuly to database with host: '${client.host}', database: ${client.database}'`)
+      return console.log(`connected successfuly to database`)
     }
   })
 
