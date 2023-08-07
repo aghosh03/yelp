@@ -10,7 +10,7 @@ const AddReview = (props) => {
     const {id} = useParams();
     const [name, setName]= useState("");
     const [reviewText, setReviewText]= useState("");
-    const [rating, setRating]= useState("(Select Star Rating)");
+    const [rating, setRating]= useState(3);
     
     const navigate = useNavigate();
 
@@ -45,7 +45,7 @@ const AddReview = (props) => {
                 </div>
                 <div className="form-group col-2 m-3">
                     <label htmlFor="rating">Star Rating</label>
-                    <select value={rating} onChange={(e)=>setRating(e.target.value)} id="rating" className="form-control">
+                    <select value={rating} onChange={(e)=>setRating(parseInt(e.target.value))} id="rating" className="form-control">
                         <option disabled>Rating</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
